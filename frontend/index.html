@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>DONGPT — MVP Chat</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>DONGPT</h1>
+            <p class="sub">Day 1 • MVP chat — building toward AI</p>
+        </header>
+
+        <main class="chat-container" id="chatContainer">
+            <div id="messages" class="messages"></div>
+            <div id="typing" class="typing" hidden>DongPT is typing<span class="dots">...</span></div>
+        </main>
+
+        <form id="inputForm" class="input-area" autocomplete="off">
+            <input id="messageInput" type="text" placeholder="Write a message... (press Enter to send)" />
+            <button id="sendBtn" type="submit">Send</button>
+            <button id="clearBtn" type="button" title="Clear history">Clear</button>
+        </form>
+
+        <footer class="footer">
+            <small>Local demo. Connect to a backend to enable real AI responses.</small>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
