@@ -4,30 +4,52 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>DONGPT — MVP Chat</title>
+    <title>DONGPT — Multi Chat UI</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
     <div class="app">
         <header class="header">
-            <h1>DONGPT</h1>
-            <p class="sub">Day 1 • MVP chat — building toward AI</p>
+            <div class="header-top">
+                <div>
+                    <h1>DONGPT</h1>
+                    <p class="sub">DoneGPT created by Quantum Leaf Automation</p>
+                </div>
+                <div class="header-actions">
+                    <button id="historyToggleBtn" type="button">History</button>
+                    <button id="newChatBtn" type="button">New Chat</button>
+                    <button id="clearBtn" type="button" title="Clear this chat">Clear</button>
+                </div>
+            </div>
         </header>
 
-        <main class="chat-container" id="chatContainer">
-            <div id="messages" class="messages"></div>
-            <div id="typing" class="typing" hidden>DongPT is typing<span class="dots">...</span></div>
-        </main>
+        <section class="workspace history-collapsed">
+            <aside id="historyPanel" class="history-panel hidden">
+                <div class="history-head">
+                    <h2>Past Chats</h2>
+                </div>
+                <div id="chatList" class="chat-list"></div>
+            </aside>
 
-        <form id="inputForm" class="input-area" autocomplete="off">
-            <input id="messageInput" type="text" placeholder="Write a message... (press Enter to send)" />
-            <button id="sendBtn" type="submit">Send</button>
-            <button id="clearBtn" type="button" title="Clear history">Clear</button>
-        </form>
+            <div class="chat-stage">
+                <main class="chat-container" id="chatContainer">
+                    <div id="messages" class="messages"></div>
+                    <div id="typing" class="typing" hidden>DONGPT is typing<span class="dots"></span></div>
+                </main>
+
+                <form id="inputForm" class="input-area" autocomplete="off">
+                    <textarea id="messageInput" rows="1"
+                        placeholder="Write a message... Press Enter to send, Shift+Enter for new line"></textarea>
+                    <button id="sendBtn" type="submit">Send</button>
+                    <button id="stopBtn" type="button" title="Stop generation">Stop</button>
+                    <button id="micBtn" type="button" title="Voice Input">&#127908;</button>
+                </form>
+            </div>
+        </section>
 
         <footer class="footer">
-            <small>Local demo. Connect to a backend to enable real AI responses.</small>
+            <small>Responsive chat UI with history, new chat, stop generation, and voice input.</small>
         </footer>
     </div>
 

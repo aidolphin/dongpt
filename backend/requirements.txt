@@ -1,10 +1,4 @@
 Flask==2.3.3
 flask-cors==3.0.10
-
-
-
-
-# gemmini app run
-# export GOOGLE_API_KEY="AIzaSyBsdEI8YIaMbD1uf9Twz7zuTOqeGi0Yx_8"
-# export GEMINI_API_KEY="AIzaSyBsdEI8YIaMbD1uf9Twz7zuTOqeGi0Yx_8"
-# curl -s "https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY"
+google-generativeai==0.8.4
+requests==2.32.3
