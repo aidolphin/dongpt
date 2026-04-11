@@ -3,6 +3,9 @@ from flask_cors import CORS
 import os
 import requests
 import google.generativeai as genai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -12,7 +15,16 @@ DEFAULT_TIMEOUT = 45
 # Configure Gemini if key is present
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
 if GOOGLE_API_KEY:
-    genai.configure(api_key=GOOGLE_API_KEY)
+    genai.configure(api_key="AIzaSyA6qyiGTba0szrlIQlbQHu9Z2vaJMKHscA")
+
+
+def is_ollama_available():
+    base_url = os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
+    try:
+        res = requests.get(f"{base_url}/api/tags", timeout=2)
+        return res.ok
+    except requests.RequestException:
+        return False
 
 
 def _extract_openai_style_text(data):
@@ -110,8 +122,9 @@ def available_providers():
     if os.environ.get("OPENROUTER_API_KEY"):
         providers.append("openrouter")
 
-    # Ollama can be used without a cloud API key
-    providers.append("ollama")
+    # Ollama only when local server is actually reachable
+    if is_ollama_available():
+        providers.append("ollama")
     return providers
 
 
@@ -162,7 +175,10 @@ def chat():
     provider = resolve_provider(provider_requested)
     if not provider:
         return jsonify({
-            "text": "No valid provider selected.",
+            "text": (
+                "No available provider found. Set GOOGLE_API_KEY for Gemini "
+                "or run Ollama on http://127.0.0.1:11434."
+            ),
             "available_providers": available_providers(),
         }), 400
 
@@ -175,6 +191,8 @@ def chat():
         })
     except requests.RequestException as e:
         return jsonify({"text": f"Provider network error ({provider}): {str(e)}"}), 502
+    except RuntimeError as e:
+        return jsonify({"text": f"Provider setup error ({provider}): {str(e)}"}), 400
     except Exception as e:
         return jsonify({"text": f"Error from {provider}: {str(e)}"}), 500
 

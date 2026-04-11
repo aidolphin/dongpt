@@ -5,8 +5,8 @@
         chatsStorageKey: "dongpt:chats:v2",
         activeChatKey: "dongpt:active-chat:v2",
         legacyStorageKey: "dongpt:messages",
-        defaultProvider: "auto",
-        defaultModel: "",
+        defaultProvider: "gemini",
+        defaultModel: "gemini-2.5-flash",
     };
 
     const els = {
